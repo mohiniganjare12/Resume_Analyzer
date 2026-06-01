@@ -1,0 +1,38 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+from database import init_db
+from routes.auth import router as auth_router
+from routes.analyze import router as analyze_router
+from config import settings
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    print(f"✅ ResumeIQ API started | Model: {settings.OLLAMA_MODEL} | DB: {settings.DATABASE_URL}")
+    yield
+
+
+app = FastAPI(
+    title="ResumeIQ API",
+    description="AI-powered resume analysis with Llama 3",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth_router)
+app.include_router(analyze_router)
+
+
+@app.get("/api/health")
+async def health():
+    return {"status": "ok", "model": settings.OLLAMA_MODEL}
