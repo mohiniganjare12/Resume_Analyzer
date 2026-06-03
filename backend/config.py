@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_DAYS: int = 7
     DATABASE_URL: str
-    GROQ_API_KEY: str
+    GROQ_API_KEY: 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
     OLLAMA_MODEL: str = "llama3-8b-8192"
 
     class Config:
