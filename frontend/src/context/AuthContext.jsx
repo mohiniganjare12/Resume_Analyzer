@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const AuthContext = createContext(null)
 
-axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.baseURL = 'https://resume-analyzer-lr5d.onrender.com'
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
