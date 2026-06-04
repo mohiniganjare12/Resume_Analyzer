@@ -3,14 +3,15 @@ import axios from 'axios'
 
 const AuthContext = createContext(null)
 
-// axios.defaults.baseURL = 'https://resume-analyzer-lr5d.onrender.com'
+axios.defaults.baseURL = 'https://resume-analyzer-lr5d.onrender.com'
 
 const isProduction = window.location.hostname !== 'localhost';
 
-axios.defaults.baseURL = isProduction 
-  ? 'https://resume-analyzer-lr5d.onrender.com' 
-  : 'http://localhost:8000';
-  export function AuthProvider({ children }) {
+// axios.defaults.baseURL = isProduction 
+//   ? 'https://resume-analyzer-lr5d.onrender.com' 
+//   : 'http://localhost:8000';
+  export function AuthProvider({ children }) 
+{
   const [user, setUser] = useState(null)
 
   const [loading, setLoading] = useState(true)
