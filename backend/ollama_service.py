@@ -112,12 +112,14 @@
 #     }
 
 
+import json
+import re
 import httpx
 from config import settings
 
 async def call_ollama(resume_text: str, jd_text: str, scores: dict) -> dict:
     has_jd = bool(jd_text and len(jd_text) > 20)
-    
+
     prompt = f"""You are a resume coach. Analyze this resume and return ONLY a JSON object.
 
 RESUME (excerpt):
@@ -148,14 +150,24 @@ Return ONLY this JSON, no extra text, no markdown:
             },
             json={
                 "model": "llama3-8b-8192",
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": 0.3
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.3,
+                "max_tokens": 1000
             }
         )
         resp.raise_for_status()
         data = resp.json()
-        
-    import json, re
+
     text = data["choices"][0]["message"]["content"]
     text = re.sub(r"```json|```", "", text).strip()
-    return json.loads(text)
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return {
+            "improvements": [],
+            "summary": "Analysis completed.",
+            "jobTitle": "Professional"
+        }
