@@ -97,8 +97,8 @@ export default function AnalyzePage() {
     if (jdText.trim()) fd.append('jobDescriptionText', jdText)
 
     try {
-      const r = await axios.post('/analyze/', fd, { headers:{'Content-Type':'multipart/form-data'} })
-      clearInterval(timer)
+const r = await axios.post('/api/analyze/', fd, { headers:{'Content-Type':'multipart/form-data'} })    
+  clearInterval(timer)
       toast.success('Analysis complete!')
       navigate(`/result/${r.data.id}`)
     } catch (err) {
