@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem('riq_token')
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      axios.get('/auth/me')
+      axios.get('/api/auth/me')
         .then(r => setUser(r.data))
         .catch(() => setToken(null))
         .finally(() => setLoading(false))
@@ -33,14 +33,14 @@ export function AuthProvider({ children }) {
   }, [])
 
   const login = useCallback(async (email, password) => {
-    const r = await axios.post('/auth/login', { email, password })
+    const r = await axios.post('/api/auth/login', { email, password })
     setToken(r.data.token)
     setUser(r.data.user)
     return r.data
   }, [])
 
   const register = useCallback(async (name, email, password) => {
-    const r = await axios.post('/auth/register', { name, email, password })
+    const r = await axios.post('/api/auth/register', { name, email, password })
     setToken(r.data.token)
     setUser(r.data.user)
     return r.data
