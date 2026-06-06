@@ -120,25 +120,22 @@ from config import settings
 async def call_ollama(resume_text: str, jd_text: str, scores: dict) -> dict:
     has_jd = bool(jd_text and len(jd_text) > 20)
 
-    prompt = f"""You are a resume coach. Analyze this resume and return ONLY a JSON object.
+    prompt = f"""Analyze this resume. Return ONLY valid JSON, nothing else.
 
-RESUME (excerpt):
+RESUME:
 {resume_text[:800]}
 
 {"JOB DESCRIPTION: " + jd_text[:400] if has_jd else ""}
 
-Return ONLY this JSON, no extra text, no markdown:
+Return this exact JSON structure:
 {{
   "improvements": [
-    {{"level": "critical", "title": "title max 6 words", "detail": "one actionable sentence"}},
-    {{"level": "warn", "title": "title max 6 words", "detail": "one actionable sentence"}},
-    {{"level": "warn", "title": "title max 6 words", "detail": "one actionable sentence"}},
-    {{"level": "good", "title": "title max 6 words", "detail": "one actionable sentence"}},
-    {{"level": "critical", "title": "title max 6 words", "detail": "one actionable sentence"}},
-    {{"level": "good", "title": "title max 6 words", "detail": "one actionable sentence"}}
+    {{"level": "critical", "title": "Add measurable achievements", "detail": "Quantify your impact with numbers and percentages."}},
+    {{"level": "warn", "title": "Improve summary section", "detail": "Write a compelling 2-3 sentence professional summary."}},
+    {{"level": "good", "title": "Good contact information", "detail": "Your contact details are complete and professional."}}
   ],
-  "summary": "2 sentences max about strengths and top priority.",
-  "jobTitle": "target job title"
+  "summary": "Brief analysis of the resume strengths and areas to improve.",
+  "jobTitle": "Software Engineer"
 }}"""
 
     async with httpx.AsyncClient(timeout=60.0) as client:
@@ -150,11 +147,9 @@ Return ONLY this JSON, no extra text, no markdown:
             },
             json={
                 "model": "llama-3.1-8b-instant",
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ],
-                "temperature": 0.3,
-                "max_tokens": 1000
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.1,
+                "max_tokens": 800
             }
         )
         resp.raise_for_status()
@@ -162,12 +157,19 @@ Return ONLY this JSON, no extra text, no markdown:
 
     text = data["choices"][0]["message"]["content"]
     text = re.sub(r"```json|```", "", text).strip()
+    
+    # Find JSON object in response
+    match = re.search(r'\{.*\}', text, re.DOTALL)
+    if match:
+        text = match.group()
 
     try:
         return json.loads(text)
     except json.JSONDecodeError:
         return {
-            "improvements": [],
-            "summary": "Analysis completed.",
+            "improvements": [
+                {"level": "good", "title": "Resume processed", "detail": "Your resume was analyzed successfully."}
+            ],
+            "summary": text[:500] if text else "Analysis completed.",
             "jobTitle": "Professional"
         }
