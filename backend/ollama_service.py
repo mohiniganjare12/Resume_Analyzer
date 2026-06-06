@@ -123,9 +123,9 @@ async def call_ollama(resume_text: str, jd_text: str, scores: dict) -> dict:
     prompt = f"""You are a resume coach. Analyze this resume and return ONLY a JSON object.
 
 RESUME (excerpt):
-{resume_text[:1500]}
+{resume_text[:800]}
 
-{"JOB DESCRIPTION: " + jd_text[:800] if has_jd else ""}
+{"JOB DESCRIPTION: " + jd_text[:400] if has_jd else ""}
 
 Return ONLY this JSON, no extra text, no markdown:
 {{
