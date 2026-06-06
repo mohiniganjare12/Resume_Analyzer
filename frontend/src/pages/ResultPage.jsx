@@ -198,7 +198,7 @@ export default function ResultPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(`/analyze/${id}`)
+    axios.get(`/api/analyze/${id}`)
       .then(r => setData(r.data.analysis.result))
       .catch(() => navigate('/dashboard'))
       .finally(() => setLoading(false))
