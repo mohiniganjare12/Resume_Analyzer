@@ -35,7 +35,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('/analyze/history').then(r => setAnalyses(r.data)).catch(console.error).finally(()=>setLoading(false))
+    axios.get('/api/analyze/history').then(r => setAnalyses(r.data)).catch(console.error).finally(()=>setLoading(false))
   }, [])
 
   const avg = (key) => analyses.length ? Math.round(analyses.reduce((s,a)=>s+(a[key]||0),0)/analyses.length) : 0
