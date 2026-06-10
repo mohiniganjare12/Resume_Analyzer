@@ -120,10 +120,10 @@ import { Eye, EyeOff, Mail, Lock, User, Sparkles, ArrowRight } from 'lucide-reac
 import toast from 'react-hot-toast'
 
 const steps = [
-  { icon: '📄', title: 'Upload your resume',        desc: 'PDF or Word, any format' },
-  { icon: '🤖', title: 'AI analyses instantly',      desc: 'ATS score, keywords, gaps' },
-  { icon: '🎯', title: 'Get actionable feedback',    desc: 'Know exactly what to fix' },
-  { icon: '🏆', title: 'Land more interviews',       desc: 'Apply with confidence' },
+  { icon: '📄', title: 'Upload your resume', desc: 'PDF or Word, any format' },
+  { icon: '🤖', title: 'AI analyses instantly', desc: 'ATS score, keywords, gaps' },
+  { icon: '🎯', title: 'Get actionable feedback', desc: 'Know exactly what to fix' },
+  { icon: '🏆', title: 'Land more interviews', desc: 'Apply with confidence' },
 ]
 
 export default function RegisterPage() {
@@ -149,162 +149,179 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex bg-slate-50">
+    <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', fontFamily:"'Plus Jakarta Sans', sans-serif" }}>
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg) } }
+        .r-input { width:100%; padding:13px 16px 13px 44px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:14px; font-family:inherit; outline:none; background:#f8fafc; color:#1e293b; transition:all 0.15s; box-sizing:border-box }
+        .r-input:focus { border-color:#6366f1; background:#fff; box-shadow:0 0 0 3px rgba(99,102,241,0.12) }
+        .r-input::placeholder { color:#94a3b8 }
+        .r-btn { width:100%; padding:15px; border:none; border-radius:12px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer; color:#fff; background:linear-gradient(135deg,#4f46e5,#7c3aed); box-shadow:0 4px 20px rgba(99,102,241,0.35); transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:8px }
+        .r-btn:hover { transform:translateY(-1px); box-shadow:0 8px 28px rgba(99,102,241,0.45) }
+        .r-btn:disabled { opacity:0.55; cursor:not-allowed; transform:none }
+        .r-fcard { background:rgba(255,255,255,0.13); border:1px solid rgba(255,255,255,0.18); border-radius:12px; padding:12px 10px; backdrop-filter:blur(8px) }
+        .reg-wrap { display:flex; flex-direction:column; min-height:100vh }
+        .reg-mobile-hero { display:block }
+        .reg-desktop-left { display:none }
+        .reg-form-panel { width:100%; padding:28px 20px; background:#fff; display:flex; align-items:flex-start; justify-content:center }
+        @media(min-width:1024px) {
+          .reg-wrap { flex-direction:row }
+          .reg-mobile-hero { display:none }
+          .reg-desktop-left { display:flex }
+          .reg-form-panel { max-width:480px; min-height:100vh; align-items:center; padding:40px 32px }
+        }
+      `}</style>
 
-      {/* ── LEFT PANEL ── */}
-      <div className="hidden lg:flex flex-col justify-between flex-1 relative overflow-hidden p-12"
-        style={{ background: 'linear-gradient(145deg, #312e81 0%, #4f46e5 40%, #7c3aed 100%)' }}>
+      <div className="reg-wrap">
 
-        {/* Blobs */}
-        <div style={{ position:'absolute', width:'400px', height:'400px', borderRadius:'50%',
-          background:'rgba(139,92,246,0.35)', filter:'blur(90px)', top:'-80px', right:'-60px', pointerEvents:'none' }}/>
-        <div style={{ position:'absolute', width:'300px', height:'300px', borderRadius:'50%',
-          background:'rgba(99,102,241,0.25)', filter:'blur(80px)', bottom:'60px', left:'-40px', pointerEvents:'none' }}/>
-
-        {/* Logo */}
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl flex items-center justify-center"
-            style={{ background:'rgba(255,255,255,0.15)', backdropFilter:'blur(8px)', border:'1px solid rgba(255,255,255,0.2)' }}>
-            <Sparkles size={22} color="#fff" />
+        {/* ── MOBILE HERO ── */}
+        <div className="reg-mobile-hero" style={{
+          background:'linear-gradient(135deg,#312e81 0%,#4f46e5 50%,#7c3aed 100%)',
+          padding:'28px 20px 32px', position:'relative', overflow:'hidden'
+        }}>
+          <div style={{position:'absolute',width:'200px',height:'200px',borderRadius:'50%',background:'rgba(139,92,246,0.4)',filter:'blur(60px)',top:'-40px',right:'-30px',pointerEvents:'none'}}/>
+          
+          {/* Logo */}
+          <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'18px',position:'relative',zIndex:1}}>
+            <div style={{width:'38px',height:'38px',borderRadius:'12px',background:'rgba(255,255,255,0.18)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <Sparkles size={20} color="#fff"/>
+            </div>
+            <span style={{fontSize:'20px',fontWeight:'800',color:'#fff'}}>ResumeIQ</span>
           </div>
-          <span className="text-white font-serif text-2xl font-bold tracking-tight">ResumeIQ</span>
-        </div>
 
-        {/* Hero copy */}
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6"
-            style={{ background:'rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.85)', border:'1px solid rgba(255,255,255,0.18)' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"/>
-            Free to get started · No credit card
-          </div>
-          <h2 className="font-serif text-5xl text-white leading-tight mb-4" style={{ letterSpacing:'-1.5px' }}>
-            Land your<br/>dream job. 🏆
-          </h2>
-          <p className="text-base leading-relaxed mb-10" style={{ color:'rgba(255,255,255,0.65)', maxWidth:'380px' }}>
-            Join thousands using ResumeIQ to outsmart ATS systems and get more interviews.
-          </p>
-
-          {/* Steps */}
-          <div className="space-y-3">
-            {steps.map((s, i) => (
-              <div key={s.title} className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center text-base flex-shrink-0"
-                  style={{ background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.12)' }}>
-                  {s.icon}
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold leading-none mb-0.5">{s.title}</p>
-                  <p className="text-xs" style={{ color:'rgba(255,255,255,0.48)' }}>{s.desc}</p>
-                </div>
-                {i < steps.length - 1 && (
-                  <div className="ml-auto w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background:'rgba(255,255,255,0.08)' }}>
-                    <span className="text-white/40 text-xs">↓</span>
+          <div style={{position:'relative',zIndex:1}}>
+            <div style={{display:'inline-flex',alignItems:'center',gap:'6px',padding:'4px 10px',borderRadius:'99px',background:'rgba(255,255,255,0.12)',border:'1px solid rgba(255,255,255,0.18)',marginBottom:'12px'}}>
+              <span style={{width:'6px',height:'6px',borderRadius:'50%',background:'#34d399'}}/>
+              <span style={{fontSize:'11px',fontWeight:'600',color:'rgba(255,255,255,0.85)'}}>Free to get started · No credit card</span>
+            </div>
+            <h2 style={{fontSize:'26px',fontWeight:'800',color:'#fff',lineHeight:'1.2',marginBottom:'8px',letterSpacing:'-0.5px'}}>
+              Land your dream job. 🏆
+            </h2>
+            <p style={{color:'rgba(255,255,255,0.65)',fontSize:'13px',lineHeight:'1.6',marginBottom:'18px'}}>
+              Join thousands using ResumeIQ to outsmart ATS systems.
+            </p>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'8px'}}>
+              {steps.map(s=>(
+                <div key={s.title} className="r-fcard" style={{display:'flex',alignItems:'center',gap:'8px'}}>
+                  <span style={{fontSize:'18px'}}>{s.icon}</span>
+                  <div>
+                    <p style={{color:'#fff',fontSize:'12px',fontWeight:'700',lineHeight:'1.2',marginBottom:'2px'}}>{s.title}</p>
+                    <p style={{color:'rgba(255,255,255,0.45)',fontSize:'11px'}}>{s.desc}</p>
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <p className="relative z-10 text-xs" style={{ color:'rgba(255,255,255,0.25)' }}>
-          Your data stays on your machine. 100% private.
-        </p>
-      </div>
+        {/* ── DESKTOP LEFT PANEL ── */}
+        <div className="reg-desktop-left" style={{
+          flex:1, flexDirection:'column', justifyContent:'space-between',
+          padding:'48px', position:'relative', overflow:'hidden',
+          background:'linear-gradient(145deg,#312e81 0%,#4f46e5 40%,#7c3aed 100%)'
+        }}>
+          <div style={{position:'absolute',width:'400px',height:'400px',borderRadius:'50%',background:'rgba(139,92,246,0.35)',filter:'blur(90px)',top:'-80px',right:'-60px',pointerEvents:'none'}}/>
+          <div style={{position:'absolute',width:'300px',height:'300px',borderRadius:'50%',background:'rgba(99,102,241,0.25)',filter:'blur(80px)',bottom:'60px',left:'-40px',pointerEvents:'none'}}/>
 
-      {/* ── RIGHT PANEL ── */}
-      <div className="flex-1 lg:max-w-[480px] flex items-center justify-center p-8 bg-white overflow-y-auto">
-        <div className="w-full max-w-sm py-4">
-
-          {/* Mobile logo */}
-          <div className="flex lg:hidden items-center gap-2.5 mb-10">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-              style={{ background:'linear-gradient(135deg,#4f46e5,#7c3aed)' }}>
-              <Sparkles size={18} color="#fff" />
+          <div style={{position:'relative',zIndex:1,display:'flex',alignItems:'center',gap:'12px'}}>
+            <div style={{width:'44px',height:'44px',borderRadius:'14px',background:'rgba(255,255,255,0.15)',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(8px)',border:'1px solid rgba(255,255,255,0.2)'}}>
+              <Sparkles size={22} color="#fff"/>
             </div>
-            <span className="font-serif text-xl font-bold text-slate-900">ResumeIQ</span>
+            <span style={{fontSize:'22px',fontWeight:'800',color:'#fff',letterSpacing:'-0.5px'}}>ResumeIQ</span>
           </div>
 
-          {/* Heading */}
-          <div className="mb-8">
-            <h2 className="font-serif text-3xl text-slate-900 mb-2" style={{ letterSpacing:'-0.5px' }}>Create account</h2>
-            <p className="text-sm text-slate-500">Start analyzing your resume for free today</p>
+          <div style={{position:'relative',zIndex:1}}>
+            <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'6px 14px',borderRadius:'99px',background:'rgba(255,255,255,0.12)',border:'1px solid rgba(255,255,255,0.18)',marginBottom:'20px'}}>
+              <span style={{width:'6px',height:'6px',borderRadius:'50%',background:'#34d399'}}/>
+              <span style={{fontSize:'12px',fontWeight:'600',color:'rgba(255,255,255,0.85)'}}>Free to get started · No credit card</span>
+            </div>
+            <h2 style={{fontSize:'48px',fontWeight:'800',color:'#fff',lineHeight:'1.1',marginBottom:'16px',letterSpacing:'-1.5px'}}>
+              Land your<br/>dream job. 🏆
+            </h2>
+            <p style={{fontSize:'16px',lineHeight:'1.75',marginBottom:'36px',color:'rgba(255,255,255,0.65)',maxWidth:'380px'}}>
+              Join thousands using ResumeIQ to outsmart ATS systems and get more interviews.
+            </p>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px'}}>
+              {steps.map(s=>(
+                <div key={s.title} className="r-fcard" style={{display:'flex',alignItems:'center',gap:'10px'}}>
+                  <span style={{fontSize:'22px'}}>{s.icon}</span>
+                  <div>
+                    <p style={{color:'#fff',fontSize:'13px',fontWeight:'700',lineHeight:'1.2',marginBottom:'3px'}}>{s.title}</p>
+                    <p style={{color:'rgba(255,255,255,0.45)',fontSize:'11px'}}>{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+          <p style={{position:'relative',zIndex:1,fontSize:'12px',color:'rgba(255,255,255,0.25)'}}>Your data stays on your machine. 100% private.</p>
+        </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+        {/* ── FORM PANEL ── */}
+        <div className="reg-form-panel">
+          <div style={{width:'100%',maxWidth:'380px'}}>
 
-            <div>
-              <label className="label">Full name</label>
-              <div className="relative">
-                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                <input type="text" required placeholder="Jane Smith"
-                  className="input-field pl-10"
-                  value={form.name} onChange={set('name')} />
-              </div>
+            <div style={{marginBottom:'28px'}}>
+              <h2 style={{fontSize:'26px',fontWeight:'800',color:'#0f172a',marginBottom:'6px',letterSpacing:'-0.5px'}}>Create account</h2>
+              <p style={{fontSize:'14px',color:'#64748b'}}>Start analyzing your resume for free today</p>
             </div>
 
-            <div>
-              <label className="label">Email address</label>
-              <div className="relative">
-                <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                <input type="email" required placeholder="you@example.com"
-                  className="input-field pl-10"
-                  value={form.email} onChange={set('email')} />
+            <form onSubmit={handleSubmit} style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+              <div>
+                <label style={{display:'block',fontSize:'13px',fontWeight:'600',color:'#374151',marginBottom:'7px'}}>Full name</label>
+                <div style={{position:'relative'}}>
+                  <User size={16} color="#94a3b8" style={{position:'absolute',left:'14px',top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}/>
+                  <input type="text" required placeholder="Jane Smith" className="r-input" value={form.name} onChange={set('name')}/>
+                </div>
               </div>
-            </div>
 
-            <div>
-              <label className="label">Password</label>
-              <div className="relative">
-                <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                <input type={show ? 'text' : 'password'} required placeholder="Min. 6 characters"
-                  className="input-field pl-10 pr-11"
-                  value={form.password} onChange={set('password')} />
-                <button type="button" onClick={() => setShow(!show)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
-                  {show ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
+              <div>
+                <label style={{display:'block',fontSize:'13px',fontWeight:'600',color:'#374151',marginBottom:'7px'}}>Email address</label>
+                <div style={{position:'relative'}}>
+                  <Mail size={16} color="#94a3b8" style={{position:'absolute',left:'14px',top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}/>
+                  <input type="email" required placeholder="you@example.com" className="r-input" value={form.email} onChange={set('email')}/>
+                </div>
               </div>
-            </div>
 
-            <div>
-              <label className="label">Confirm password</label>
-              <div className="relative">
-                <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                <input type={show ? 'text' : 'password'} required placeholder="Repeat password"
-                  className="input-field pl-10"
-                  value={form.confirm} onChange={set('confirm')} />
+              <div>
+                <label style={{display:'block',fontSize:'13px',fontWeight:'600',color:'#374151',marginBottom:'7px'}}>Password</label>
+                <div style={{position:'relative'}}>
+                  <Lock size={16} color="#94a3b8" style={{position:'absolute',left:'14px',top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}/>
+                  <input type={show?'text':'password'} required placeholder="Min. 6 characters" className="r-input" style={{paddingRight:'44px'}} value={form.password} onChange={set('password')}/>
+                  <button type="button" onClick={()=>setShow(!show)} style={{position:'absolute',right:'14px',top:'50%',transform:'translateY(-50%)',background:'none',border:'none',cursor:'pointer',color:'#94a3b8',display:'flex',padding:0}}>
+                    {show?<EyeOff size={16}/>:<Eye size={16}/>}
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div className="pt-1">
-              <button type="submit" disabled={loading}
-                className="btn-primary w-full flex items-center justify-center gap-2 py-3 text-base">
-                {loading
-                  ? <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                  : <ArrowRight size={17} />}
-                {loading ? 'Creating account…' : 'Create free account'}
+              <div>
+                <label style={{display:'block',fontSize:'13px',fontWeight:'600',color:'#374151',marginBottom:'7px'}}>Confirm password</label>
+                <div style={{position:'relative'}}>
+                  <Lock size={16} color="#94a3b8" style={{position:'absolute',left:'14px',top:'50%',transform:'translateY(-50%)',pointerEvents:'none'}}/>
+                  <input type={show?'text':'password'} required placeholder="Repeat password" className="r-input" value={form.confirm} onChange={set('confirm')}/>
+                </div>
+              </div>
+
+              <button type="submit" disabled={loading} className="r-btn" style={{marginTop:'4px'}}>
+                {loading?<div style={{width:'16px',height:'16px',border:'2px solid rgba(255,255,255,0.35)',borderTop:'2px solid #fff',borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/>:<ArrowRight size={17}/>}
+                {loading?'Creating account…':'Create free account'}
               </button>
+            </form>
+
+            <p style={{textAlign:'center',fontSize:'12px',color:'#94a3b8',marginTop:'14px',display:'flex',alignItems:'center',justifyContent:'center',gap:'6px'}}>
+              <span>🔒</span> No credit card · 100% free · Private & secure
+            </p>
+
+            <div style={{display:'flex',alignItems:'center',gap:'12px',margin:'16px 0'}}>
+              <div style={{flex:1,height:'1px',background:'#f1f5f9'}}/>
+              <span style={{fontSize:'11px',color:'#94a3b8',fontWeight:'600'}}>ALREADY HAVE AN ACCOUNT?</span>
+              <div style={{flex:1,height:'1px',background:'#f1f5f9'}}/>
             </div>
-          </form>
 
-          {/* Trust note */}
-          <p className="text-center text-xs text-slate-400 mt-4 flex items-center justify-center gap-1.5">
-            <span>🔒</span> No credit card · 100% free · Private & secure
-          </p>
-
-          <div className="flex items-center gap-3 my-5">
-            <div className="flex-1 h-px bg-slate-100" />
-            <span className="text-xs text-slate-400 font-medium">ALREADY HAVE AN ACCOUNT?</span>
-            <div className="flex-1 h-px bg-slate-100" />
+            <Link to="/login" style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'8px',width:'100%',padding:'14px',borderRadius:'12px',border:'2px solid #e2e8f0',color:'#475569',fontSize:'14px',fontWeight:'600',textDecoration:'none',transition:'all 0.15s'}}>
+              Sign in instead →
+            </Link>
           </div>
-
-          <Link to="/login"
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border-2 border-slate-200 text-slate-700 text-sm font-semibold hover:border-brand-300 hover:text-brand-600 transition-all">
-            Sign in instead →
-          </Link>
         </div>
+
       </div>
     </div>
   )
