@@ -110,7 +110,7 @@ const r = await axios.post('/api/analyze/', fd, { headers:{'Content-Type':'multi
   return (
     <>
       {loading && <Loader step={step}/>}
-      <div className="p-6 lg:p-8 max-w-3xl mx-auto">
+     <div className="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto">
         <div className="mb-8">
           <h1 className="text-2xl lg:text-3xl font-serif text-slate-900 mb-1">Analyze Resume</h1>
           <p className="text-slate-500 text-sm">Upload your resume and get instant AI-powered analysis.</p>

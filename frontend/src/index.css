@@ -33,3 +33,15 @@
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
+
+/* ── Mobile Responsive Fixes ── */
+@media (max-width: 640px) {
+  .card { border-radius: 12px; }
+  
+  /* Tighter padding on mobile */
+  .p-6 { padding: 1rem !important; }
+  .p-8 { padding: 1.25rem !important; }
+  
+  /* Stack header buttons */
+  .flex-wrap { flex-wrap: wrap; }
+}

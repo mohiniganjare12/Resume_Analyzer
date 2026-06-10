@@ -44,7 +44,7 @@ export default function DashboardPage() {
   const greeting = new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'
 
   return (
-    <div className="p-6 lg:p-8 max-w-5xl mx-auto">
+   <div className="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
@@ -59,7 +59,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {[
           { icon: FileSearch,  label:'Total Analyses', value: analyses.length,           color:'text-brand-600',   bg:'bg-brand-50' },
           { icon: TrendingUp,  label:'Average Score',  value: avg('overall_score')||'—', color:'text-emerald-600', bg:'bg-emerald-50' },

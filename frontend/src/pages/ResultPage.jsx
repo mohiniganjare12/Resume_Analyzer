@@ -215,7 +215,7 @@ export default function ResultPage() {
     <div className="p-5 lg:p-8 max-w-6xl mx-auto space-y-6 animate-fade-in">
 
       {/* Header */}
-      <div className="flex items-center gap-4 flex-wrap">
+     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 flex-wrap">
         <button onClick={() => navigate('/dashboard')} className="btn-secondary flex items-center gap-2 text-sm">
           <ArrowLeft size={16} /> Dashboard
         </button>
@@ -225,7 +225,7 @@ export default function ResultPage() {
             {data.jobTitle ? `Targeting: ${data.jobTitle}` : 'General resume analysis'}
           </p>
         </div>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="flex items-center gap-3 sm:ml-auto w-full sm:w-auto">
           <button onClick={() => downloadReport(data)}
             className="btn-secondary flex items-center gap-2 text-sm">
             <Download size={15} /> Download Report
@@ -241,13 +241,14 @@ export default function ResultPage() {
         <h2 className="font-serif text-lg text-slate-800 mb-6 flex items-center gap-2">
           <Target className="w-5 h-5 text-brand-500" /> Score Overview
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          <Ring score={data.overallScore} size={130} label="Overall Score" sublabel="Combined rating" />
-          <Ring score={data.atsScore} size={130} label="ATS Score" sublabel="Machine readability" />
-          <Ring score={data.impactScore} size={130} label="Impact Score" sublabel="Achievement clarity" />
-          <Ring score={data.matchScore} size={130} label="JD Match"
-            sublabel={data.matchScore != null ? 'Keyword alignment' : 'No JD provided'} />
-        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+  <Ring score={data.overallScore} size={110} label="Overall Score" sublabel="Combined rating" />
+  <Ring score={data.atsScore} size={110} label="ATS Score" sublabel="Machine readability" />
+  <Ring score={data.impactScore} size={110} label="Impact Score" sublabel="Achievement clarity" />
+  <Ring score={data.matchScore} size={110} label="JD Match"
+    sublabel={data.matchScore != null ? 'Keyword alignment' : 'No JD provided'} />
+</div>
+
       </div>
 
       {/* Section breakdown - bars only */}
@@ -328,3 +329,4 @@ export default function ResultPage() {
     </div>
   )
 }
+
