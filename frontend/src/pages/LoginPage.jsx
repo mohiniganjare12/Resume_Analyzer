@@ -177,8 +177,8 @@ export default function LoginPage() {
       </div>
 
       {/* RIGHT — white form */}
-      <div style={{width:'100%',maxWidth:'500px',display:'flex',alignItems:'center',justifyContent:'center',padding:'40px 32px',background:'#fff',minHeight:'100vh'}}>
-        <div style={{width:'100%',maxWidth:'360px'}}>
+      <div style={{width:'100%',maxWidth:'500px',display:'flex',alignItems:'center',justifyContent:'center',padding:'24px 20px',background:'#fff',minHeight:'100vh'}}>
+      <div style={{width:'100%',maxWidth:'360px',paddingTop:'20px',paddingBottom:'20px'}}>
 
           {/* Mobile logo */}
           <div className="login-mobile-logo" style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'36px'}}>
